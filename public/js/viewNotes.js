@@ -15,14 +15,14 @@ window.onload = (event) => {
 };
 
 const getNotes = (userId) => {
+  let dataArr = [];    
   const notesRef = firebase.database().ref(`users/${userId}`).orderByChild("title");
   notesRef.on('value', (snapshot) => {
     snapshot.forEach((child) => {
         console.log(child.val().title);
-            
+        dataArr.push(child);
     });
-    const data = snapshot.val();
-    renderDataAsHtml(data);
+    renderDataAsHtml(dataArr);
   });
 };
 
